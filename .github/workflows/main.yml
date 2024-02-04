@@ -29,12 +29,12 @@ jobs:
           mvn -B package --file pom.xml
 
       - name: Build Docker Image
-        uses: docker/buid-push-action@v2
+        uses: docker/build-push-action@v2
         with:
           context: .
           dockerfile: Dockerfile
           push: false
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/springboot-github-action:$(date-'%Y-%m-%d%H-%M-%S')
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/springboot-github-action:today
 
       - name: Docker Hub login
         uses: docker/loging-action@v1
@@ -43,12 +43,12 @@ jobs:
           password:  ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Push Built Docker Image to Docker Hub
-        uses: docker/build-push-actions@v2
+        uses: docker/build-push-action@v2
         with:
           context: .
           dockerfile: Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/springboot-github-action:$(date-'%Y-%m-%d%H-%M-%S')
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/springboot-github-action:today
 
 
 
